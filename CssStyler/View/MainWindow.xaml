@@ -1,4 +1,5 @@
 ﻿<Window x:Class="CssStyler.MainWindow"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +9,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
-        <Menu x:Name="menu" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="15" DockPanel.Dock="Top"/>
+        <Menu x:Name="menu" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="15" DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Command="{Binding LoadHtml}" Header="Load Html"/>
+                <MenuItem/>
+            </MenuItem>
+            <MenuItem/>
+        </Menu>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -23,12 +30,19 @@
                 <TreeView x:Name="treeView" ItemsSource="{Binding HtmlTreeViewItems}" DockPanel.Dock="Left">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-                            <TextBlock Text="{Binding Title}" >
+                            <TextBlock Text="{Binding Title}">
                                 <TextBlock.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Header="{Binding HtmlElementMenuText}"/>
+                                        <MenuItem Header="{Binding HtmlElementMenuText}" IsCheckable="True" IsChecked="{Binding Path=HtmlElementCheck, Mode=TwoWay}"/>
+                                        <MenuItem Header="{Binding HtmlClassMenuText}" IsCheckable="True" IsChecked="{Binding Path=HtmlClassCheck, Mode=TwoWay}" Visibility="{Binding HtmlClassMenuTextVisibility}"/>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding Clicked}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                     </ContextMenu>
                                 </TextBlock.ContextMenu>
+                         
                             </TextBlock>
                         </HierarchicalDataTemplate>
                     </TreeView.ItemTemplate>

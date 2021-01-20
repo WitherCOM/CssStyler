@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using CssStyler.ViewModel;
+using CssStyler.Model;
+using CssStyler.Persistance;
 
 namespace CssStyler
 {
@@ -15,7 +17,9 @@ namespace CssStyler
     public partial class App : Application
     {
         MainWindow _mainwindow;
+        DataLoad _dataload;
         CssViewModel _cssviewmodel;
+        CssModel _model;
 
 
         public App()
@@ -26,7 +30,9 @@ namespace CssStyler
         private void App_Startup(object sender, StartupEventArgs e)
         {
             _mainwindow = new MainWindow();
-            _cssviewmodel = new CssViewModel();
+            _dataload = new DataLoad();
+            _model = new CssModel(_dataload);
+            _cssviewmodel = new CssViewModel(_model);
 
             _mainwindow.DataContext = _cssviewmodel;
 
