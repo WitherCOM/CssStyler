@@ -27,22 +27,18 @@
             </Grid.ColumnDefinitions>
             <DockPanel>
                 <Label x:Name="label" DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" FontFamily="Arial" FontWeight="Bold" Height="30" Content="HTML"/>
+                <CheckBox DockPanel.Dock="Top" Content="SelectAll" Command="{Binding AllCheckedChange}" IsChecked="{Binding Path=AllChecked, Mode=TwoWay}" IsThreeState="True"/>
                 <TreeView x:Name="treeView" ItemsSource="{Binding HtmlTreeViewItems}" DockPanel.Dock="Left">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                             <TextBlock Text="{Binding Title}">
                                 <TextBlock.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Header="{Binding HtmlElementMenuText}" IsCheckable="True" IsChecked="{Binding Path=HtmlElementCheck, Mode=TwoWay}"/>
-                                        <MenuItem Header="{Binding HtmlClassMenuText}" IsCheckable="True" IsChecked="{Binding Path=HtmlClassCheck, Mode=TwoWay}" Visibility="{Binding HtmlClassMenuTextVisibility}"/>
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding Clicked}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
+                                        <MenuItem Command="{Binding Clicked}" Header="{Binding HtmlElementMenuText}" IsCheckable="True" IsChecked="{Binding Path=HtmlElementCheck, Mode=TwoWay}"/>
+                                        <MenuItem Command="{Binding Clicked}" Header="{Binding HtmlClassMenuText}" IsCheckable="True" IsChecked="{Binding Path=HtmlClassCheck, Mode=TwoWay}" Visibility="{Binding HtmlClassMenuTextVisibility}"/>
                                     </ContextMenu>
+                                    
                                 </TextBlock.ContextMenu>
-                         
                             </TextBlock>
                         </HierarchicalDataTemplate>
                     </TreeView.ItemTemplate>
@@ -51,7 +47,7 @@
             <DockPanel Grid.Column="1" LastChildFill="False"/>
             <DockPanel Grid.Column="2">
                 <Label x:Name="label1" Content="CSS Attributes" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontFamily="Arial" FontWeight="Bold" Height="30"/>
-                <Label x:Name="label2" Content="{Binding SelectorText}" DockPanel.Dock="Top" Height="30"/>
+                <Label x:Name="label2" Content="asd" DockPanel.Dock="Top" Height="30"/>
                 <ListBox x:Name="listBox"/>
             </DockPanel>
 

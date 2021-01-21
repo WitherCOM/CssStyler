@@ -19,12 +19,13 @@ namespace CssStyler.Model
         public event EventHandler<TreeViewEventArgs> TreeViewCreated;
         public event EventHandler<StringEventArg> HtmlDecodeError;
         public event EventHandler<EventArgs> AllChecked;
+        public event EventHandler<EventArgs> NotAllChecked;
+        public event EventHandler<EventArgs> NothingChecked;
 
         public CssModel(DataLoad dataload)
         {
             _dataload = dataload;
             dataload.FileLoaded += Dataload_FileLoaded;
-            dataload.LoadFile();
             selectors = new List<Selector>();
 
         }
@@ -162,9 +163,45 @@ namespace CssStyler.Model
             }
         }
 
-        private void IsAllChecked()
+        public void HowChecked()
         {
-            AllChecked?.Invoke(this, new EventArgs());
+            int all=0,check=0;
+            IsChechkedInTree(ref check,ref all, htmltree);
+            if(check == 0)
+            {
+                NothingChecked?.Invoke(this, new EventArgs());
+                return;
+            }
+            if(check == all)
+            {
+                AllChecked?.Invoke(this, new EventArgs());
+                return;
+            }
+            NotAllChecked?.Invoke(this, new EventArgs());
+        }
+
+        private void IsChechkedInTree(ref int count,ref int all, List<HtmlTag> tree)
+        {
+            foreach (HtmlTag t in tree)
+            {
+                all++;
+                if(t.Class != "")
+                {
+                    all++;
+                }
+                if (t.HtmlClassCheck)
+                {
+                    count++;
+                }
+                if(t.HtmlElementCheck)
+                {
+                    count++;
+                }
+                if (t.Inner?.Count != 0)
+                {
+                    IsChechkedInTree(ref count,ref all, t.Inner);
+                }
+            }
         }
 
         public void AddSelector()
