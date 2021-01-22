@@ -19,6 +19,9 @@ namespace CssStyler.ViewModel
 
         public bool? AllChecked { get { return _allchecked; } set { _allchecked = value; OnPropertyChanged(); } }
 
+        private string _htmlpath;
+        public string HtmlPath { get { return _htmlpath; } set { _htmlpath = value;OnPropertyChanged(); } }
+
         public DelegateCommand LoadHtml { get; private set; }
 
         public DelegateCommand AllCheckedChange { get; private set; }
@@ -38,6 +41,7 @@ namespace CssStyler.ViewModel
                 if (diag.ShowDialog().Value)
                 {
                     _model.CreateTree(diag.FileName);
+                    _htmlpath = diag.FileName;
                 }
             });
             AllCheckedChange = new DelegateCommand((param) =>
