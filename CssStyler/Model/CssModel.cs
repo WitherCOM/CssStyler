@@ -14,10 +14,12 @@ namespace CssStyler.Model
         private List<HtmlTag> htmltree;
         private List<Selector> selectors;
         private DataLoad _dataload;
+        private string _loadedhtml;
         private int _currentedit;
 
         public event EventHandler<TreeViewEventArgs> TreeViewCreated;
         public event EventHandler<StringEventArg> HtmlDecodeError;
+        public event EventHandler<EventArgs> HtmlLoaded;
         public event EventHandler<EventArgs> AllChecked;
         public event EventHandler<EventArgs> NotAllChecked;
         public event EventHandler<EventArgs> NothingChecked;
@@ -92,6 +94,7 @@ namespace CssStyler.Model
                     }
                 }
                 if (prev_root.Count != 0) throw new Exception("Wrong HTML file");
+                _loadedhtml = e.Str;
                 OnTreeViewCreated(htmltree);
             }
             catch (Exception exp)
