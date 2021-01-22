@@ -15,6 +15,8 @@ namespace CssStyler.Model
         private List<Selector> selectors;
         private DataLoad _dataload;
         private string _loadedhtml;
+        private string _previewed_html;
+        private string _previewed_css;
         private int _currentedit;
 
         public event EventHandler<TreeViewEventArgs> TreeViewCreated;

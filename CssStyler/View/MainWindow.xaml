@@ -44,7 +44,8 @@
                     </TreeView.ItemTemplate>
                 </TreeView>
             </DockPanel>
-            <DockPanel Grid.Column="1">
+            <DockPanel Grid.Column="1" AutomationProperties.Name="midpanel">
+                
             </DockPanel>
             <DockPanel Grid.Column="2">
                 <Label x:Name="label1" Content="CSS Attributes" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontFamily="Arial" FontWeight="Bold" Height="30"/>

@@ -50,6 +50,7 @@ namespace CssStyler.ViewModel
                 ObservationCheckAll(AllChecked.Value, _htmltreeviewitems);
             });
             _model.HtmlDecodeError += _model_HtmlDecodeError;
+
         }
 
         private void _model_NothingChecked(object sender, EventArgs e)
